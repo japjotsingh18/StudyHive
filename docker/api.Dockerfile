@@ -1,6 +1,6 @@
 FROM ghcr.io/astral-sh/uv:0.12.0 AS uv
 
-FROM python:3.13.14-slim AS runtime
+FROM python:3.14.0-slim AS runtime
 
 ENV PATH="/workspace/.venv/bin:$PATH" \
     PYTHONDONTWRITEBYTECODE=1 \
