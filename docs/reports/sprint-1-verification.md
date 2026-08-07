@@ -5,8 +5,8 @@
 **Verified:** 2026-08-06 (America/Phoenix)  
 **Result:** PASS
 
-> This result covers the local Sprint 1 verification pipeline. It is not evidence of a hosted CI
-> run or merge readiness when the repository has no commit history or configured remote.
+This result covers both the local Sprint 1 verification pipeline and the successful GitHub Actions
+run for the published `main` branch.
 
 ## Delivered scope
 
@@ -51,6 +51,8 @@ incomplete profile state without creating a `Profile`, university, or other futu
 | Migration SQL        | PASS   | PostgreSQL offline SQL generation completed                                                 |
 | Web production build | PASS   | Next.js 16.2.11 compiled, typed, and prerendered `/`, `/login`, `/register`, and `/account` |
 | API package build    | PASS   | sdist and wheel built successfully                                                          |
+| Container builds     | PASS   | Production API and web images built successfully in GitHub Actions                          |
+| Hosted CI            | PASS   | GitHub Actions run `31136320905` completed successfully                                     |
 | Repository gate      | PASS   | All `make check` stages passed; see environment note below                                  |
 
 The backend suite validates registration uniqueness, password login, protected endpoint envelopes,
@@ -85,6 +87,8 @@ waiving a check.
 - Regenerated typed Next.js route metadata and allowed required `esbuild`/`sharp` install scripts.
 - Corrected PostgreSQL integration imports and strengthened authorization/session unit coverage.
 - Added migration drift detection to CI.
+- Excluded generated TypeScript build cache and removed a stale duplicate setup guide.
+- Isolated the safe-default configuration test from inherited CI environment variables.
 
 ## Explicit exclusions
 
@@ -106,8 +110,8 @@ material was found, and the migration upgrades a newly created empty database wi
 drift. The implemented endpoints and authentication behavior match the Sprint 1 slices of Parts 2,
 5, and 8; later authentication flows remain assigned to Sprint 2.
 
-An actual merge and milestone tag are blocked by repository state: `main` has no commits, no remote is
-configured, and all project files are untracked. Consequently there is no Sprint 0 baseline, feature
-branch, pull request, hosted CI result, or diff from which to prove that unrelated refactors are
-absent. Establishing that history is required before applying the project's squash-and-merge policy
-and creating a `sprint-1-complete` tag.
+The initial project state was committed directly to `main` because no earlier repository history
+existed from which to construct a truthful Sprint 0/Sprint 1 branch split. The public repository is
+hosted at `japjotsingh18/StudyHive`, and GitHub Actions run `31136320905` passed the API, web,
+migration, package, and container-image gates. The verified repository state is ready for the
+`v0.1.0` Sprint 1 milestone tag.
