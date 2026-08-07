@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema.json",
+  "style": "new-york",
+  "rsc": true,
+  "tsx": true,
+  "tailwind": {
+    "css": "src/styles.css",
+    "baseColor": "slate",
+    "cssVariables": true
+  },
+  "iconLibrary": "lucide",
+  "aliases": {
+    "components": "@studyhive/ui/components",
+    "utils": "@studyhive/ui",
+    "ui": "@studyhive/ui/components",
+    "lib": "@studyhive/ui/lib",
+    "hooks": "@studyhive/ui/hooks"
+  }
+}

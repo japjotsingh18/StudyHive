@@ -1,0 +1,9 @@
+# Initial broad ownership; replace with real module teams only after maintainers exist.
+* @japjotsingh
+
+# Security, persistence, delivery, and governance retain explicit fallback review.
+/apps/api/ @japjotsingh
+/apps/api/migrations/ @japjotsingh
+/.github/workflows/ @japjotsingh
+/docker/ @japjotsingh
+/SECURITY.md @japjotsingh

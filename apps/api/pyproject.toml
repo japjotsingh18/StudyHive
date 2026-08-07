@@ -1,0 +1,33 @@
+[project]
+name = "studyhive-api"
+version = "0.0.0"
+description = "StudyHive API, realtime, and worker runtime"
+readme = "README.md"
+requires-python = ">=3.13,<3.14"
+license = "Apache-2.0"
+dependencies = [
+  "alembic==1.18.5",
+  "asyncpg>=0.30.0,<1",
+  "email-validator>=2.2.0,<3",
+  "fastapi==0.139.2",
+  "pwdlib[argon2]>=0.3.0,<1",
+  "pydantic-settings>=2.10.0,<3",
+  "redis>=6.4.0,<7",
+  "sqlalchemy[asyncio]==2.0.51",
+  "uvicorn[standard]>=0.35.0,<1",
+]
+
+[build-system]
+requires = ["hatchling>=1.27,<2"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/studyhive"]
+
+[tool.uv.sources]
+studyhive-api = { workspace = true }
+
+[dependency-groups]
+dev = [
+  "httpx>=0.28.0,<1",
+]

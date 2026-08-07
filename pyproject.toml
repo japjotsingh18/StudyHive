@@ -1,0 +1,48 @@
+[project]
+name = "studyhive-workspace"
+version = "0.0.0"
+requires-python = ">=3.13,<3.14"
+
+[dependency-groups]
+dev = [
+  "black==25.1.0",
+  "mypy==1.17.1",
+  "pytest==8.4.2",
+  "pytest-asyncio==1.1.0",
+  "ruff==0.12.11",
+]
+
+[tool.uv]
+package = false
+
+[tool.uv.workspace]
+members = ["apps/api"]
+
+[tool.black]
+line-length = 100
+target-version = ["py313"]
+extend-exclude = "apps/api/migrations/versions"
+
+[tool.ruff]
+line-length = 100
+target-version = "py313"
+extend-exclude = ["apps/api/migrations/versions"]
+
+[tool.ruff.lint]
+select = ["A", "ANN", "ASYNC", "B", "C4", "E", "F", "I", "N", "PERF", "PIE", "PL", "RUF", "S", "SIM", "T20", "UP", "W"]
+ignore = ["ANN401", "PLR0913"]
+
+[tool.ruff.lint.per-file-ignores]
+"**/tests/**/*.py" = ["S101"]
+
+[tool.mypy]
+python_version = "3.13"
+strict = true
+plugins = ["pydantic.mypy"]
+packages = ["studyhive"]
+mypy_path = ["apps/api/src"]
+
+[tool.pytest.ini_options]
+addopts = "--strict-config --strict-markers -ra"
+asyncio_mode = "auto"
+testpaths = ["apps/api/tests"]

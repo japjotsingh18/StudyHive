@@ -1,0 +1,50 @@
+{
+  "name": "studyhive",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Open-source academic collaboration platform",
+  "license": "Apache-2.0",
+  "packageManager": "pnpm@10.17.1",
+  "engines": {
+    "node": ">=22.14.0 <25",
+    "pnpm": ">=10.17.0 <11"
+  },
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev --parallel",
+    "format": "prettier --write apps packages .github .vscode package.json turbo.json pnpm-workspace.yaml",
+    "format:check": "prettier --check apps packages .github .vscode package.json turbo.json pnpm-workspace.yaml",
+    "lint": "turbo run lint",
+    "prepare": "husky",
+    "test": "turbo run test",
+    "typecheck": "turbo run typecheck"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.0",
+    "@types/node": "^24.10.0",
+    "eslint": "^9.39.0",
+    "eslint-config-prettier": "^10.1.0",
+    "globals": "^16.5.0",
+    "husky": "^9.1.0",
+    "lint-staged": "^16.2.0",
+    "prettier": "^3.6.0",
+    "prettier-plugin-tailwindcss": "^0.7.0",
+    "turbo": "^2.7.0",
+    "typescript": "^5.9.0",
+    "typescript-eslint": "^8.48.0"
+  },
+  "lint-staged": {
+    "*.{js,mjs,cjs,ts,tsx,json,jsonc,css,md,yml,yaml}": "prettier --write",
+    "*.{js,mjs,cjs,ts,tsx}": "eslint --fix",
+    "*.py": [
+      "./scripts/uv.sh run ruff check --fix",
+      "./scripts/uv.sh run black"
+    ]
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild",
+      "sharp"
+    ]
+  }
+}

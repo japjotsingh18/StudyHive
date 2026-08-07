@@ -1,0 +1,68 @@
+name: Bug report
+description: Report a reproducible defect using synthetic or non-sensitive data.
+title: "[Bug]: "
+labels: ["type: bug", "needs: triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Do not include student data, tokens, private locations, security vulnerabilities, or production logs. Report security issues through SECURITY.md.
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Before submitting
+      options:
+        - label: I searched existing issues.
+          required: true
+        - label: This is not a security vulnerability or private conduct report.
+          required: true
+        - label: I removed or replaced all personal and secret data.
+          required: true
+  - type: textarea
+    id: summary
+    attributes:
+      label: Summary
+      description: What happened, and what user impact did it have?
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Reproduction
+      description: Minimal numbered steps using synthetic data.
+      placeholder: |
+        1. As a verified demo student…
+        2. Open…
+        3. Select…
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: Commit/version, browser/OS, viewport, assistive technology, and deployment environment if relevant.
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Safe evidence
+      description: Sanitized screenshots, request IDs, or logs. Never attach credentials or personal data.
+  - type: dropdown
+    id: frequency
+    attributes:
+      label: Frequency
+      options: [Always, Often, Sometimes, Once]
+    validations:
+      required: true
+  - type: textarea
+    id: accessibility
+    attributes:
+      label: Accessibility impact
+      description: Note keyboard, screen-reader, contrast, zoom, motion, or cognitive impact if applicable.

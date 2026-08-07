@@ -1,0 +1,4 @@
+blank_issues_enabled: false
+# Add private security and conduct contact links only after the canonical
+# repository URL and private reporting channels exist. SECURITY.md and
+# CODE_OF_CONDUCT.md define the interim process.

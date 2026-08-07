@@ -1,0 +1,7 @@
+{
+  "extends": "@studyhive/config/typescript/base",
+  "compilerOptions": {
+    "jsx": "react-jsx"
+  },
+  "include": ["src/**/*.ts", "src/**/*.tsx", "vitest.config.ts"]
+}

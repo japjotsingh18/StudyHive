@@ -1,0 +1,38 @@
+# Environment and secrets
+.env
+.env.*
+!.env.example
+
+# Node.js
+node_modules/
+.pnpm-store/
+.turbo/
+.next/
+out/
+coverage/
+*.tsbuildinfo
+
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+.mypy_cache/
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+dist/
+build/
+*.egg-info/
+
+# Local services and generated state
+.data/
+.tools/
+storage/
+
+# IDE and operating system
+.DS_Store
+.idea/
+*.swp
+*.swo
+.vscode/*.local.json

@@ -1,0 +1,113 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  web:
+    name: Web quality and build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          run_install: false
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .node-version
+          cache: pnpm
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Check formatting
+        run: pnpm format:check
+      - name: Lint
+        run: pnpm lint
+      - name: Type check
+        run: pnpm typecheck
+      - name: Test
+        run: pnpm test
+      - name: Build
+        run: pnpm build
+
+  api:
+    name: API quality and build
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:17-alpine
+        env:
+          POSTGRES_DB: studyhive
+          POSTGRES_PASSWORD: studyhive
+          POSTGRES_USER: studyhive
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U studyhive -d studyhive"
+          --health-interval 5s
+          --health-timeout 3s
+          --health-retries 10
+      redis:
+        image: redis:8-alpine
+        ports:
+          - 6379:6379
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 5s
+          --health-timeout 3s
+          --health-retries 10
+    env:
+      STUDYHIVE_ENVIRONMENT: ci
+      STUDYHIVE_DATABASE_URL: postgresql+asyncpg://studyhive:studyhive@localhost:5432/studyhive
+      STUDYHIVE_REDIS_URL: redis://localhost:6379/0
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version-file: .python-version
+      - name: Set up uv
+        uses: astral-sh/setup-uv@v6
+        with:
+          version: 0.12.0
+          enable-cache: true
+      - name: Install dependencies
+        run: uv sync --all-packages --group dev --frozen
+      - name: Lint
+        run: uv run ruff check .
+      - name: Check formatting
+        run: uv run black --check .
+      - name: Type check
+        run: uv run mypy
+      - name: Test
+        run: uv run pytest
+      - name: Apply migrations
+        run: uv run --package studyhive-api alembic --config apps/api/alembic.ini upgrade head
+      - name: Check migration drift
+        run: uv run --package studyhive-api alembic --config apps/api/alembic.ini check
+      - name: Build package
+        run: uv build --package studyhive-api
+
+  containers:
+    name: Container build verification
+    needs: [api, web]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Build API image
+        run: docker build -f docker/api.Dockerfile .
+      - name: Build web image
+        run: docker build -f docker/web.Dockerfile .

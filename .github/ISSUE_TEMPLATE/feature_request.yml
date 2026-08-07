@@ -1,0 +1,67 @@
+name: Product proposal
+description: Propose a user-centered improvement or capability.
+title: "[Proposal]: "
+labels: ["type: proposal", "needs: triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Start with the student problem, not a preferred technology. AI features are Phase 2 and need a separate privacy/rights/evaluation review.
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Before submitting
+      options:
+        - label: I searched existing issues and the roadmap.
+          required: true
+        - label: I read the product principles and MVP non-goals.
+          required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: Student problem
+      description: Who has this problem, in what context, and what do they do today?
+    validations:
+      required: true
+  - type: textarea
+    id: outcome
+    attributes:
+      label: Desired outcome
+      description: Describe success without prescribing implementation.
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence
+      description: Research, repeated reports, or pilot data. Do not include personal data.
+  - type: textarea
+    id: scope
+    attributes:
+      label: Proposed scope and non-goals
+    validations:
+      required: true
+  - type: textarea
+    id: risks
+    attributes:
+      label: Privacy, safety, accessibility, and abuse risks
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance signals
+      description: What observable outcomes would show this solved the problem?
+    validations:
+      required: true
+  - type: dropdown
+    id: milestone
+    attributes:
+      label: Suggested roadmap area
+      options:
+        - Needs maintainer triage
+        - MVP coordination core
+        - Public beta / P1
+        - Post-1.0 / Phase 2
+    validations:
+      required: true

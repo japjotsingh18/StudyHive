@@ -1,0 +1,61 @@
+@import "tailwindcss";
+@source "../../../packages/ui/src";
+
+@theme inline {
+  --color-background: var(--color-canvas);
+  --color-foreground: var(--color-text-primary);
+  --color-primary: var(--color-action-primary);
+  --color-primary-foreground: var(--color-action-primary-text);
+  --color-border: var(--color-border-default);
+  --color-ring: var(--color-focus);
+  --radius-md: var(--radius-control);
+  --radius-lg: var(--radius-surface);
+}
+
+* {
+  border-color: var(--color-border-default);
+}
+
+html {
+  background: var(--color-canvas);
+}
+
+body {
+  min-width: 20rem;
+  margin: 0;
+  background: var(--color-canvas);
+  color: var(--color-text-primary);
+  font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+}
+
+:focus-visible {
+  outline: 0.1875rem solid var(--color-focus);
+  outline-offset: 0.1875rem;
+}
+
+.skip-link {
+  position: fixed;
+  inset-block-start: 0.5rem;
+  inset-inline-start: 0.5rem;
+  z-index: 50;
+  transform: translateY(-200%);
+  border-radius: var(--radius-control);
+  background: var(--color-action-primary);
+  color: var(--color-action-primary-text);
+  padding: 0.75rem 1rem;
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
