@@ -4,6 +4,17 @@ All notable changes to StudyHang will be documented here. The project intends to
 
 ## Unreleased
 
+## [0.1.1] - 2026-08-06
+
+### Security
+
+- Upgraded Black to 26.3.1 and pytest to 9.0.3 to resolve their published file-write and temporary-directory vulnerabilities.
+- Upgraded pytest-asyncio to the minimum pytest 9-compatible release, 1.3.0.
+- Upgraded Next.js and its ESLint plugin to 16.3.0, carrying patched PostCSS 8.5.23 and Sharp 0.35.3 transitive dependencies.
+- Regenerated the frozen pnpm and uv lockfiles without adding product features or changing architecture.
+
+## [0.1.0] - 2026-08-06
+
 ### Added
 
 - Sprint 1 email/password registration, login, logout, session management, protected API/frontend routes, initial user creation, and minimal profile bootstrap.
