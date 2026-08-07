@@ -3,7 +3,7 @@
 **Project:** StudyHive  
 **Release:** v0.1.1 — dependency security maintenance  
 **Verified:** 2026-08-06 (America/Phoenix)  
-**Result:** PENDING DEFAULT-BRANCH ALERT RECALCULATION
+**Result:** PASS
 
 ## Scope
 
@@ -29,37 +29,38 @@ pytest-asyncio 1.3.0 is the minimum published release whose pytest range include
 
 ## Local verification evidence
 
-| Check                       | Result  | Evidence                                                                   |
-| --------------------------- | ------- | -------------------------------------------------------------------------- |
-| Frozen pnpm resolution      | PASS    | Targeted install accepted `pnpm-lock.yaml`; expected `+11/-8` graph change |
-| Frozen uv resolution        | PASS    | Installed Black 26.3.1, pytest 9.0.3, and pytest-asyncio 1.3.0             |
-| Python lint                 | PASS    | Ruff reported all checks passed                                            |
-| Python formatting           | PASS    | Black 26.3.1 would leave all 25 files unchanged                            |
-| Python types                | PASS    | Strict mypy reported no issues in 17 source files                          |
-| Backend tests               | PASS    | 21 tests passed under pytest 9.0.3 and pytest-asyncio 1.3.0                |
-| Migration apply             | PASS    | Alembic upgraded the local PostgreSQL schema to head                       |
-| Migration drift             | PASS    | `alembic check` reported no new upgrade operations                         |
-| API package build           | PASS    | Source distribution and wheel built successfully                           |
-| Frontend/UI lint            | PASS    | ESLint passed for web and shared UI packages                               |
-| Frontend/UI formatting      | PASS    | Prettier reported canonical formatting                                     |
-| Frontend/UI types           | PASS    | Both TypeScript projects passed `tsc --noEmit`                             |
-| Frontend/UI tests           | PASS    | 11 web tests and 1 UI test passed                                          |
-| Production dependency audit | PASS    | `pnpm audit --prod` reported no known vulnerabilities                      |
-| Web production build        | PASS    | GitHub Actions built the Next.js 16.3.0 application successfully           |
-| Container image builds      | PASS    | GitHub Actions built both production container images                      |
-| Dependabot alerts           | PENDING | GitHub recalculates alerts after the patched graph reaches `main`          |
-| CodeQL and secret scanning  | PASS    | All three CodeQL analyses and GitGuardian checks passed                    |
+| Check                       | Result | Evidence                                                                   |
+| --------------------------- | ------ | -------------------------------------------------------------------------- |
+| Frozen pnpm resolution      | PASS   | Targeted install accepted `pnpm-lock.yaml`; expected `+11/-8` graph change |
+| Frozen uv resolution        | PASS   | Installed Black 26.3.1, pytest 9.0.3, and pytest-asyncio 1.3.0             |
+| Python lint                 | PASS   | Ruff reported all checks passed                                            |
+| Python formatting           | PASS   | Black 26.3.1 would leave all 25 files unchanged                            |
+| Python types                | PASS   | Strict mypy reported no issues in 17 source files                          |
+| Backend tests               | PASS   | 21 tests passed under pytest 9.0.3 and pytest-asyncio 1.3.0                |
+| Migration apply             | PASS   | Alembic upgraded the local PostgreSQL schema to head                       |
+| Migration drift             | PASS   | `alembic check` reported no new upgrade operations                         |
+| API package build           | PASS   | Source distribution and wheel built successfully                           |
+| Frontend/UI lint            | PASS   | ESLint passed for web and shared UI packages                               |
+| Frontend/UI formatting      | PASS   | Prettier reported canonical formatting                                     |
+| Frontend/UI types           | PASS   | Both TypeScript projects passed `tsc --noEmit`                             |
+| Frontend/UI tests           | PASS   | 11 web tests and 1 UI test passed                                          |
+| Production dependency audit | PASS   | `pnpm audit --prod` reported no known vulnerabilities                      |
+| Web production build        | PASS   | GitHub Actions built the Next.js 16.3.0 application successfully           |
+| Container image builds      | PASS   | GitHub Actions built both production container images                      |
+| Dependabot alerts           | PASS   | All seven reported alerts are fixed; the open-alert count is zero          |
+| CodeQL and secret scanning  | PASS   | All three CodeQL analyses and GitGuardian checks passed                    |
 
 The workspace is stored on a macOS file-provider mount. Repository-level pnpm/uv commands can stall
 while traversing provider-backed dependency directories, so verification used clean disposable
 environments under `/private/tmp` with the committed lockfiles. Turbopack's local worker could not
 bind its internal port under the execution sandbox; this is an environment restriction rather than a
-source or dependency diagnostic. GitHub Actions run `31160152011` passed the web, API, migration,
-package, and container gates in a clean checkout. CodeQL run `31160149406` passed its Actions,
-Python, and JavaScript/TypeScript analyses.
+source or dependency diagnostic. Post-merge GitHub Actions run `31160765387` passed the web, API,
+migration, package, and container gates on `main`. Post-merge CodeQL run `31160765367` passed its
+Actions, Python, and JavaScript/TypeScript analyses.
 
 ## Conclusion
 
-Local compatibility checks, hosted CI, CodeQL, secret scanning, and container builds pass. v0.1.1
-is not releasable until the patched graph is merged to the default branch and Dependabot confirms
-that all seven alerts are closed.
+Local compatibility checks, hosted CI, CodeQL, secret scanning, and container builds pass. The
+default-branch dependency graph contains only the patched Black, pytest, PostCSS, and Sharp
+versions. Dependabot marked all seven reported alerts fixed on 2026-08-07 UTC, leaving zero open
+alerts. v0.1.1 is ready as a dedicated dependency security maintenance release.
