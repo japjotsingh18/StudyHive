@@ -1,5 +1,12 @@
 # StudyHive
 
+[![CI](https://github.com/japjotsingh18/StudyHive/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/japjotsingh18/StudyHive/actions/workflows/ci.yml)
+[![License](https://img.shields.io/github/license/japjotsingh18/StudyHive)](LICENSE)
+[![Latest release](https://img.shields.io/github/v/tag/japjotsingh18/StudyHive?label=release&sort=semver)](https://github.com/japjotsingh18/StudyHive/releases)
+[![Open issues](https://img.shields.io/github/issues/japjotsingh18/StudyHive)](https://github.com/japjotsingh18/StudyHive/issues)
+[![Contributors](https://img.shields.io/github/contributors/japjotsingh18/StudyHive)](https://github.com/japjotsingh18/StudyHive/graphs/contributors)
+[![Code style: Black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://black.readthedocs.io/)
+
 > An open-source academic collaboration platform for finding dependable classmates, organizing academic Activities, and improving accountability.
 
 StudyHive is not a general-purpose chat product. Its core promise is: **help a student find the right people to collaborate with, see where academic activity is happening, and know who is actually coming.**
