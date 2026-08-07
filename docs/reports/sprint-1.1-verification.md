@@ -54,9 +54,9 @@ The workspace is stored on a macOS file-provider mount. Repository-level pnpm/uv
 while traversing provider-backed dependency directories, so verification used clean disposable
 environments under `/private/tmp` with the committed lockfiles. Turbopack's local worker could not
 bind its internal port under the execution sandbox; this is an environment restriction rather than a
-source or dependency diagnostic. GitHub Actions run `31160152011` passed the web, API, migration,
-package, and container gates in a clean checkout. CodeQL run `31160149406` passed its Actions,
-Python, and JavaScript/TypeScript analyses.
+source or dependency diagnostic. Post-merge GitHub Actions run `31160765387` passed the web, API,
+migration, package, and container gates on `main`. Post-merge CodeQL run `31160765367` passed its
+Actions, Python, and JavaScript/TypeScript analyses.
 
 ## Conclusion
 
