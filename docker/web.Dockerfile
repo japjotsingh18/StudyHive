@@ -1,4 +1,4 @@
-FROM node:24.18.0-alpine AS base
+FROM node:26.5.1-alpine AS base
 
 ENV PNPM_HOME="/pnpm" \
     PATH="/pnpm:$PATH"
@@ -20,7 +20,7 @@ COPY --from=dependencies /workspace/packages/ui/node_modules ./packages/ui/node_
 COPY . .
 RUN pnpm --filter @studyhive/web build
 
-FROM node:24.18.0-alpine AS runtime
+FROM node:26.5.1-alpine AS runtime
 ENV NODE_ENV=production \
     NEXT_TELEMETRY_DISABLED=1
 WORKDIR /app
