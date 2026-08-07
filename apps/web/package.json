@@ -14,12 +14,12 @@
     "@studyhive/ui": "workspace:*",
     "@tanstack/react-query": "^5.101.0",
     "framer-motion": "^12.42.0",
-    "next": "16.2.11",
+    "next": "16.3.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0"
   },
   "devDependencies": {
-    "@next/eslint-plugin-next": "16.2.11",
+    "@next/eslint-plugin-next": "16.3.0",
     "@studyhive/config": "workspace:*",
     "@tailwindcss/postcss": "^4.3.0",
     "@testing-library/jest-dom": "^6.9.0",
