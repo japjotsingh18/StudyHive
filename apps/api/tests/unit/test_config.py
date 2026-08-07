@@ -1,5 +1,4 @@
 from pytest import MonkeyPatch
-
 from studyhive.core.config import Environment, Settings
 
 
