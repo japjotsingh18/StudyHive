@@ -1,7 +1,10 @@
+from pytest import MonkeyPatch
+
 from studyhive.core.config import Environment, Settings
 
 
-def test_settings_use_safe_local_defaults() -> None:
+def test_settings_use_safe_local_defaults(monkeypatch: MonkeyPatch) -> None:
+    monkeypatch.delenv("STUDYHIVE_ENVIRONMENT", raising=False)
     settings = Settings(_env_file=None)
 
     assert settings.environment is Environment.DEVELOPMENT
