@@ -1,7 +1,7 @@
 """SQLAlchemy models owned by the authentication foundation."""
 
 from datetime import datetime
-from typing import Any
+from typing import TYPE_CHECKING, Any
 from uuid import UUID, uuid4
 
 from sqlalchemy import (
@@ -15,9 +15,18 @@ from sqlalchemy import (
     Uuid,
 )
 from sqlalchemy.dialects.postgresql import JSONB
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from studyhive.db.base import Base
+
+if TYPE_CHECKING:
+    from studyhive.profiles.models import (
+        ProfileModel,
+        StudyPreferenceModel,
+        UserBlockModel,
+        UserConsentModel,
+        UserLanguageModel,
+    )
 
 
 class UserModel(Base):
@@ -43,6 +52,19 @@ class UserModel(Base):
         DateTime(timezone=True), nullable=True
     )
     deleted_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+
+    profile: Mapped["ProfileModel | None"] = relationship(back_populates="user", uselist=False)
+    study_preference: Mapped["StudyPreferenceModel | None"] = relationship(
+        back_populates="user", uselist=False
+    )
+    languages: Mapped[list["UserLanguageModel"]] = relationship(back_populates="user")
+    consent_events: Mapped[list["UserConsentModel"]] = relationship(back_populates="user")
+    blocks_created: Mapped[list["UserBlockModel"]] = relationship(
+        back_populates="blocker", foreign_keys="UserBlockModel.blocker_user_id"
+    )
+    blocks_received: Mapped[list["UserBlockModel"]] = relationship(
+        back_populates="blocked", foreign_keys="UserBlockModel.blocked_user_id"
+    )
 
 
 class EmailAddressModel(Base):
@@ -106,26 +128,6 @@ class AuthSessionModel(Base):
     replaced_by_session_id: Mapped[UUID | None] = mapped_column(
         Uuid, ForeignKey("auth_sessions.id", ondelete="SET NULL"), nullable=True
     )
-
-
-class UserConsentModel(Base):
-    """Immutable policy acknowledgement required for registration."""
-
-    __tablename__ = "user_consents"
-    __table_args__ = (
-        UniqueConstraint("user_id", "policy_key", "policy_version"),
-        CheckConstraint("decision IN ('grant', 'withdraw')", name="decision_allowed"),
-    )
-
-    id: Mapped[UUID] = mapped_column(Uuid, primary_key=True, default=uuid4)
-    user_id: Mapped[UUID] = mapped_column(
-        Uuid, ForeignKey("users.id", ondelete="CASCADE"), nullable=False, index=True
-    )
-    policy_key: Mapped[str] = mapped_column(String(80), nullable=False)
-    policy_version: Mapped[str] = mapped_column(String(40), nullable=False)
-    decision: Mapped[str] = mapped_column(String(10), nullable=False, default="grant")
-    occurred_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False)
-    surface: Mapped[str] = mapped_column(String(40), nullable=False, default="registration")
 
 
 class IdempotencyRecordModel(Base):

@@ -14,7 +14,6 @@ from studyhive.auth.models import (
     EmailAddressModel,
     IdempotencyRecordModel,
     PasswordCredentialModel,
-    UserConsentModel,
     UserModel,
 )
 from studyhive.auth.ports import (
@@ -24,6 +23,7 @@ from studyhive.auth.ports import (
     RegistrationResult,
     SessionWrite,
 )
+from studyhive.profiles.models import UserConsentModel
 
 
 class SqlAlchemyAuthenticationRepository:
@@ -99,6 +99,7 @@ class SqlAlchemyAuthenticationRepository:
                             user_id=user.id,
                             policy_key=acknowledgement.key,
                             policy_version=acknowledgement.version,
+                            event_generation=1,
                             decision="grant",
                             occurred_at=command.now,
                             surface="registration",
