@@ -9,6 +9,7 @@ from sqlalchemy.ext.asyncio import async_engine_from_config
 from studyhive.auth import models as auth_models  # noqa: F401
 from studyhive.core.config import get_settings
 from studyhive.db import Base
+from studyhive.profiles import models as profile_models  # noqa: F401
 
 config = context.config
 
