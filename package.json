@@ -31,7 +31,7 @@
     "prettier-plugin-tailwindcss": "^0.7.0",
     "turbo": "^2.7.0",
     "typescript": "^5.9.0",
-    "typescript-eslint": "^8.48.0"
+    "typescript-eslint": "^8.67.0"
   },
   "lint-staged": {
     "*.{js,mjs,cjs,ts,tsx,json,jsonc,css,md,yml,yaml}": "prettier --write",
